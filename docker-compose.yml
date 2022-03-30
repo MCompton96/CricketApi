@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  #cricketapi:
+   # image: ${DOCKER_REGISTRY-}cricketapi
+    #build:
+     # context: .
+      #dockerfile: CricketAPI/Dockerfile
+
+  sqlserver: 
+    image: "mcr.microsoft.com/mssql/server:2017-latest"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "pa55w0rd!"
+      MSSQL_PID: "Express"
+    ports: 
+      - "1433:1433"
