@@ -84,7 +84,18 @@ namespace CricketAPI.GraphQL
             context.Bowlings.Add(bowling);
             await context.SaveChangesAsync();
 
-            return new AddBowlingPayload(bowling);
+            var wickets = input.WicketsInformation.Select(x => new Wicket
+            {
+                Area = x.Area,
+                Type = x.Type,
+                BowlingId = bowling.Id
+            })
+            .ToList();
+
+            context.Wickets.AddRange(wickets);
+            await context.SaveChangesAsync();
+
+            return new AddBowlingPayload(bowling, wickets);
         }
 
         [UseDbContext(typeof(AppDbContext))]

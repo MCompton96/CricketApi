@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace CricketAPI.GraphQL.Bowlings
 {
     public record AddBowlingPayload(
-        Bowling bowling        
+        Bowling Bowling,
+        IReadOnlyCollection<Wicket> Wickets
     );
 }

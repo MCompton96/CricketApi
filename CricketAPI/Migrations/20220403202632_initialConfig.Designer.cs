@@ -4,14 +4,16 @@ using CricketAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CricketAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220403202632_initialConfig")]
+    partial class initialConfig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,9 +35,6 @@ namespace CricketAPI.Migrations
 
                     b.Property<bool>("Out")
                         .HasColumnType("bit");
-
-                    b.Property<string>("OutMethod")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Runs")
                         .HasColumnType("int");
@@ -78,29 +77,6 @@ namespace CricketAPI.Migrations
                         .IsUnique();
 
                     b.ToTable("Bowlings");
-                });
-
-            modelBuilder.Entity("CricketAPI.Models.Fielding", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Catches")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("GameId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("RunOuts")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GameId")
-                        .IsUnique();
-
-                    b.ToTable("FieldingStats");
                 });
 
             modelBuilder.Entity("CricketAPI.Models.Game", b =>
@@ -203,30 +179,6 @@ namespace CricketAPI.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("CricketAPI.Models.Wicket", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Area")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("BowlingId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BowlingId");
-
-                    b.ToTable("Wickets");
-                });
-
             modelBuilder.Entity("CricketAPI.Models.Batting", b =>
                 {
                     b.HasOne("CricketAPI.Models.Game", "Game")
@@ -243,17 +195,6 @@ namespace CricketAPI.Migrations
                     b.HasOne("CricketAPI.Models.Game", "Game")
                         .WithOne("Bowling")
                         .HasForeignKey("CricketAPI.Models.Bowling", "GameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Game");
-                });
-
-            modelBuilder.Entity("CricketAPI.Models.Fielding", b =>
-                {
-                    b.HasOne("CricketAPI.Models.Game", "Game")
-                        .WithOne("Fielding")
-                        .HasForeignKey("CricketAPI.Models.Fielding", "GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -282,29 +223,11 @@ namespace CricketAPI.Migrations
                     b.Navigation("Game");
                 });
 
-            modelBuilder.Entity("CricketAPI.Models.Wicket", b =>
-                {
-                    b.HasOne("CricketAPI.Models.Bowling", "Bowling")
-                        .WithMany("WicketsInformation")
-                        .HasForeignKey("BowlingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Bowling");
-                });
-
-            modelBuilder.Entity("CricketAPI.Models.Bowling", b =>
-                {
-                    b.Navigation("WicketsInformation");
-                });
-
             modelBuilder.Entity("CricketAPI.Models.Game", b =>
                 {
                     b.Navigation("Batting");
 
                     b.Navigation("Bowling");
-
-                    b.Navigation("Fielding");
 
                     b.Navigation("Location");
 

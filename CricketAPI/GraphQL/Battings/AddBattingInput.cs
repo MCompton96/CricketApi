@@ -9,6 +9,7 @@ namespace CricketAPI.GraphQL.Battings
         Guid GameId,
         int Runs,
         bool Out,
+        string? OutMethod,
         int Boundaries,
         int Sixes
     );

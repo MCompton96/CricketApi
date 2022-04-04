@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CricketAPI.Models
 {
-    public class Batting
+    public class Fielding
     {
         [Key]
         public Guid Id { get; set; }
@@ -17,15 +17,9 @@ namespace CricketAPI.Models
         public Game Game { get; set; }
 
         [Required]
-        public int Runs { get; set; } = 0;
+        public int Catches { get; set; } = 0;
 
         [Required]
-        public bool Out { get; set; }
-
-        public string? OutMethod { get; set; }
-
-        public int Boundaries { get; set; } = 0;
-
-        public int Sixes { get; set; } = 0;
+        public int RunOuts { get; set; } = 0;
     }
 }

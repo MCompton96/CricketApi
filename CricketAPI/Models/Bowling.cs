@@ -23,5 +23,7 @@ namespace CricketAPI.Models
         public int Runs { get; set; } = 0;
 
         public int Maidens { get; set; } = 0;
+
+        public IReadOnlyCollection<Wicket> WicketsInformation { get; set; } = new List<Wicket>();
     }
 }

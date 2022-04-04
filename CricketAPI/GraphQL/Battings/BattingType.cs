@@ -30,6 +30,10 @@ namespace CricketAPI.GraphQL.Battings
                 .Description("Represents the quantity of sixes scored in an innings");
 
             descriptor
+                .Field(x => x.OutMethod)
+                .Description("Represents how the batsman got out");
+
+            descriptor
                 .Field(x => x.Game)
                 .ResolveWith<Resolvers>(x => x.GetGame(default!, default!))
                 .UseDbContext<AppDbContext>()

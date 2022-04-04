@@ -57,5 +57,14 @@ namespace CricketAPI.GraphQL
         {
             return context.GmeLocations;
         }
+
+        [UseDbContext(typeof(AppDbContext))]
+        [UseFiltering]
+        [UseSorting]
+        [Authorize]
+        public IQueryable<Wicket> GetWicket([ScopedService] AppDbContext context)
+        {
+            return context.Wickets;
+        }
     }
 }

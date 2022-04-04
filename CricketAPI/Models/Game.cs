@@ -24,5 +24,7 @@ namespace CricketAPI.Models
         public Batting Batting { get; set; }
 
         public Bowling Bowling { get; set; }
+
+        public Fielding Fielding { get; set; }
     }
 }

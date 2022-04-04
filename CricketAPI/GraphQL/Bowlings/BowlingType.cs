@@ -38,12 +38,23 @@ namespace CricketAPI.GraphQL.Bowlings
                 .ResolveWith<Resolvers>(x => x.GetGame(default!, default!))
                 .UseDbContext<AppDbContext>()
                 .Description("Represents the game associated with bowling stats");
+
+            descriptor
+                .Field(x => x.WicketsInformation)
+                .ResolveWith<Resolvers>(x => x.GetWicketInformation(default!, default!))
+                .UseDbContext<AppDbContext>()
+                .Description("Represents the information for the wickets taken");
         }
         private class Resolvers
         {
             public Game GetGame([Parent] Bowling bowling, [ScopedService] AppDbContext context)
             {
                 return context.Games.FirstOrDefault(x => x.Id == bowling.GameId);
+            }
+
+            public IReadOnlyCollection<Wicket> GetWicketInformation([Parent] Bowling bowling, [ScopedService] AppDbContext context)
+            {
+                return context.Wickets.Where(x => x.BowlingId == bowling.Id).ToList();
             }
         }
     }
